@@ -2,7 +2,7 @@ rw_rest
 =======
 
 REST model using rueckenwind
-
+ -- WARNING: This is only a Work-In-Progress experiment for now, it allows access to files on your harddrive, you do NOT want to use this anywhere near production --
 
 Documentation
 =============
