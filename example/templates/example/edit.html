@@ -5,6 +5,7 @@
 
     <link href="{{ static('example/jsoneditor/dist/jsoneditor.min.css') }}" rel="stylesheet" type="text/css">
     <script src="{{ static('example/jsoneditor/dist/jsoneditor.min.js') }}"></script>
+    <script src="{{ static('example/js/request.js') }}"></script>
     <title>Edit</title>
     <style>
         .jsoneditor .menu button#saveDocument {
@@ -19,22 +20,6 @@
     <button type="button" id="saveDocument">Save</button>
 
     <script>
-        function request(type, url, data) {
-            var http = new XMLHttpRequest();
-            http.open(type, url);
-            http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            http.send(data);
-            http.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    if (this.status == 200) {
-                        location.reload();
-                    }
-                }
-            };
-        }
-
-
-        // create the editor
         var container = document.getElementById("jsoneditor");
 
         var options = {
@@ -58,11 +43,8 @@
         }
         editor.setMode = setMode.bind(editor);
 
-        // get json
         document.getElementsByClassName("menu")[0].appendChild(saveDocument);
         saveDocument.onclick = function () {
-            //var blob = new Blob([editor.getText()], {type: 'application/json;charset=utf-8'});
-            //saveAs(blob, 'document.json');
             request("PUT", "/example/{{ _id }}", editor.getText());
         };
     </script>
