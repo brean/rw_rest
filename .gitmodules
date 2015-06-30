@@ -1,0 +1,3 @@
+[submodule "example/static/example/jsoneditor"]
+	path = example/static/example/jsoneditor
+	url = git@github.com:josdejong/jsoneditor.git
