@@ -23,7 +23,7 @@ class Provider(object):
         """
         raise NotImplementedError("load item by id")
 
-    def create(self, data):
+    def create(self, _id, data):
         """
         create/override item
 
@@ -41,9 +41,17 @@ class Provider(object):
         """
         raise NotImplementedError("delete item")
 
+    def update(self, _id, data):
+        """
+        update data
+        :param _id:
+        :param data:
+        :return:
+        """
+
 
 class FileProvider(Provider):
-    def __init__(self, path, ext='.json', id_key='name'):
+    def __init__(self, path, ext='.json', id_key=None):
         self.path = path
         self.ext = ext
         self.id_key = id_key
@@ -97,16 +105,17 @@ class FileProvider(Provider):
         path = os.path.join(self.path, _id+self.ext)
         return json.loads(file(path, 'r').read())
 
-    def create(self, data):
+    def create(self, data, _id):
         """
         create/override file
         :param data: data you want to store in the file
         :return:
         """
-        if self.id_key:
-            _id = data[self.id_key]
-        else:
-            _id = uuid.uuid1()
+        if not _id:
+            if self.id_key:
+                _id = data[self.id_key]
+            else:
+                _id = uuid.uuid1()
         path = os.path.join(self.path, _id+self.ext)
         f = file(path, 'w')
         f.write(json.dumps(data, indent=2))

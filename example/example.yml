@@ -1,2 +1,7 @@
 rw.plugins:
   rw.routing: true
+  rw.static: true
+
+rw.static:
+  static:
+    - example

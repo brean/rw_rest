@@ -19,9 +19,10 @@ class Rest(object):
         else:
             self.models = {}
 
-        @module.post('/<name:str>')
-        def _post(handler, name):
-            handler.finish(self.model(name).post(json.loads(handler.request.body)))
+        @module.post('/<name:str>/<_id:str>')
+        def _post(handler, name, _id):
+            data = json.loads(handler.request.body)
+            handler.finish(self.model(name).post(data, _id))
 
         @module.get('/<name:str>')
         def _get_all(handler, name):
@@ -34,6 +35,11 @@ class Rest(object):
         @module.delete('/<name:str>/<_id:str>')
         def _delete(handler, name, _id):
             handler.finish(self.model(name).delete(_id))
+
+        @module.put('/<name:str>/<_id:str>')
+        def _put(handler, name, _id):
+            data = json.loads(handler.request.body)
+            handler.finish(self.model(name).put(data, _id))
 
     def add_model(self, model, name=None):
         if not name:
@@ -87,5 +93,8 @@ class Model(object):
         self.provider.delete(_id)
         return data
 
-    def post(self, data):
-        return self.provider.create(data)
+    def post(self, data, _id):
+        return self.provider.create(data, _id)
+
+    def put(self, data, _id):
+        return self.provider.create(data, _id)

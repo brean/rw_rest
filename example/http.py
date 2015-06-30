@@ -28,3 +28,10 @@ def main(handler):
     """show main page"""
     handler['examples'] = example.provider.list()
     root.render_template("main.html")
+
+
+@root.get('/example/edit/<_id:str>')
+def edit(handler, _id):
+    handler['json_data'] = example.provider.load(_id)
+    handler['_id'] = _id
+    root.render_template("edit.html")

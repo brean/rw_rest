@@ -19,7 +19,7 @@
 
             function _new(url) {
                 var name = prompt("Please enter a name");
-                request("POST", url, JSON.stringify({"name": name}));
+                request("POST", url+'/'+name, JSON.stringify({"name": name}));
             }
 
             function _del(url) {
@@ -33,7 +33,7 @@
             {% for e in examples %}
             <li>
                 <a href="/example/{{ e }}">{{ e }}</a>
-                <button>edit (TODO)</button>
+                <button onclick="window.location='/example/edit/{{ e }}';">edit</button>
                 <button onclick="_del('/example/{{ e }}')">del</button>
             </li>
             {% endfor %}
