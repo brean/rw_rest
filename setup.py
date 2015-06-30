@@ -49,7 +49,7 @@ setup(
     description='REST model using rueckenwind',
     author='Andreas Bresser',
     author_email='self@andreasbresser.de',
-    install_requires=['rueckenwind>=4.0.0'],
+    install_requires=['rueckenwind>=0.4.0'],
     extras_requires={
         'test': ['tox', 'pytest', 'pep8'],
         'docs': ['sphinx_rtd_theme']

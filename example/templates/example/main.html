@@ -28,6 +28,16 @@
         </script>
     </head>
     <body>
-        TODO
+        <a href="/example">example</a>
+        <ul>
+            {% for e in examples %}
+            <li>
+                <a href="/example/{{ e }}">{{ e }}</a>
+                <button>edit (TODO)</button>
+                <button onclick="_del('/example/{{ e }}')">del</button>
+            </li>
+            {% endfor %}
+        </ul>
+        <button onclick="_new('/example')">new</button>
     </body>
 </html>

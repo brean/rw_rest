@@ -3,21 +3,28 @@
 server for http_rest example
 (file management example)
 """
+import os
 import rw.http
 import rw.routing
 
 from rw_rest.model import Rest, Model
 from rw_rest.provider import FileProvider
-from . import http_example
+
+
+BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+DATA_PATH = os.path.join(BASE_PATH, 'data')
 
 root = rw.http.Module('example')
-data_root = rw.http.Module('example', 'http_data')
 
-root.mount('/data', data_root)
-example_rest = Rest(module=data_root)
-example_rest.add_model(model=http_example.Example(data_rest=data_root))
+provider = FileProvider(DATA_PATH)
+example = Model(provider=provider, name='example')
+
+example_rest = Rest(module=root)
+example_rest.add_model(model=example)
+
 
 @root.get('/')
 def main(handler):
     """show main page"""
+    handler['examples'] = example.provider.list()
     root.render_template("main.html")
