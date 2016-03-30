@@ -3,7 +3,7 @@ rw_rest
 
 REST model using rueckenwind
 
- WARNING: This is a Work-In-Progress experiment for now, the example allows
+ WARNING: This was an experiment for me, the example allows
  access to files on your hard drive, you do NOT want to use it anywhere near
  production.
 
